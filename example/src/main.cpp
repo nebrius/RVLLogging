@@ -24,12 +24,16 @@ along with RVLLogging.  If not, see <http://www.gnu.org/licenses/>.
 void setup() {
   SerialLogging interface;
   RVLLogging logging(&interface, RVLLogLevel::Info);
+
   logging.debug("debug");
   logging.info("info");
   logging.error("error");
+
   logging.debug("debug with number: %d", 42);
   logging.info("info with number: %d", 43);
   logging.error("error with number: %d", 44);
+
+  logging.info("complicated: %d + %f is %s", 30, 42.45, "I dunno");
 }
 
 void loop() {

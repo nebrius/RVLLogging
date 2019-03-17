@@ -17,6 +17,9 @@ You should have received a copy of the GNU General Public License
 along with Raver Lights.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <string.h>
+#include <stdarg.h>
+#include <stdio.h>
 #include "RVLLogging.h"
 
 RVLLogging::RVLLogging(RVLLoggingInterface* iface, RVLLogLevel level) {
@@ -28,59 +31,39 @@ void RVLLogging::log(const char *s) {
   this->interface->print(s);
 }
 
-template<typename T, typename ...Args> void RVLLogging::log(const char *s, T value, Args ...args) {
-  while (*s) {
-    if (*s == '%' && *(++s) != '%') {
-      this->interface->print(value);
-      s++;
-      this->log(s, args...);
-      return;
-    }
-    this->interface->print(*(s++));
-  }
+void RVLLogging::log(const char *s, va_list argptr) {
+  int bufferLength = strlen(s) * 3;
+  char str[bufferLength];
+  vsnprintf(str, bufferLength, s, argptr);
+  this->interface->print(str);
 }
 
-void RVLLogging::error(const char *s) {
+void RVLLogging::error(const char *s, ...) {
   if (this->logLevel >= RVLLogLevel::Error) {
     this->interface->print("[error]: ");
-    this->interface->println(s);
-  }
-}
-
-template<typename T, typename... Args> void RVLLogging::error(const char *s, T value, Args... args) {
-  if (this->logLevel >= RVLLogLevel::Error) {
-    this->interface->print("[error]: ");
-    this->log(s, value, args...);
+    va_list argptr;
+    va_start(argptr, s);
+    this->log(s, argptr);
     this->interface->println();
   }
 }
 
-void RVLLogging::info(const char *s) {
+void RVLLogging::info(const char *s, ...) {
   if (this->logLevel >= RVLLogLevel::Info) {
     this->interface->print("[info ]: ");
-    this->interface->println(s);
-  }
-}
-
-template<typename T, typename... Args> void RVLLogging::info(const char *s, T value, Args... args) {
-  if (this->logLevel >= RVLLogLevel::Info) {
-    this->interface->print("[info ]: ");
-    this->log(s, value, args...);
+    va_list argptr;
+    va_start(argptr, s);
+    this->log(s, argptr);
     this->interface->println();
   }
 }
 
-void RVLLogging::debug(const char *s) {
-  if (this->logLevel >= RVLLogLevel::Debug) {
-    this->interface->print("[debug]: ");
-    this->interface->println(s);
-  }
-}
-
-template<typename T, typename... Args> void RVLLogging::debug(const char *s, T value, Args... args) {
+void RVLLogging::debug(const char *s, ...) {
   if (this->logLevel >= RVLLogLevel::Debug) {
     this->interface->print("[debug ]: ");
-    this->log(s, value, args...);
+    va_list argptr;
+    va_start(argptr, s);
+    this->log(s, argptr);
     this->interface->println();
   }
 }

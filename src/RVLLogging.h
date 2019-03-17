@@ -29,10 +29,8 @@ enum class RVLLogLevel {
 
 class RVLLoggingInterface {
  public:
-  virtual void print(const char s) = 0;
   virtual void print(const char *s) = 0;
   virtual void println() = 0;
-  virtual void println(const char s) = 0;
   virtual void println(const char *s) = 0;
 };
 
@@ -42,19 +40,14 @@ class RVLLogging {
   RVLLoggingInterface* interface;
 
   void log(const char *s);
-  template<typename T, typename ...Args> void log(const char *s, T value, Args ...args);
+  void log(const char *s, va_list argptr);
 
  public:
   RVLLogging(RVLLoggingInterface* iface, RVLLogLevel level);
 
-  void error(const char *s);
-  template<typename T, typename... Args> void error(const char *s, T value, Args... args);
-
-  void info(const char *s);
-  template<typename T, typename... Args> void info(const char *s, T value, Args... args);
-
-  void debug(const char *s);
-  template<typename T, typename... Args> void debug(const char *s, T value, Args... args);
+  void error(const char *s, ...);
+  void info(const char *s, ...);
+  void debug(const char *s, ...);
 };
 
 #endif  // RVLLOGGING_H_

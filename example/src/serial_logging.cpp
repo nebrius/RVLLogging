@@ -22,10 +22,7 @@ along with RVLLogging.  If not, see <http://www.gnu.org/licenses/>.
 
 SerialLogging::SerialLogging() {
   Serial.begin(115200);
-}
-
-void SerialLogging::print(const char s) {
-  Serial.print(s);
+  Serial.println();
 }
 
 void SerialLogging::print(const char *s) {
@@ -34,10 +31,6 @@ void SerialLogging::print(const char *s) {
 
 void SerialLogging::println() {
   Serial.println();
-}
-
-void SerialLogging::println(const char s) {
-  Serial.println(s);
 }
 
 void SerialLogging::println(const char *s) {
