@@ -29,10 +29,8 @@ along with RVLLogging.  If not, see <http://www.gnu.org/licenses/>.
 class SerialLogging : public RVLLoggingInterface {
  public:
   SerialLogging();
-  void print(const char s);
   void print(const char *s);
   void println();
-  void println(const char s);
   void println(const char *s);
 };
 
