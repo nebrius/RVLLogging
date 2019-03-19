@@ -20,6 +20,8 @@ along with Raver Lights.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef RVLLOGGING_H_
 #define RVLLOGGING_H_
 
+#include <stdarg.h>
+
 // These are defined such that we can do if(logLevel >= RVLogLevel.Warning) in code
 enum class RVLLogLevel {
   Error = 1,
