@@ -1,6 +1,8 @@
 # RVLLogging
 
-A standalone, dependecy-less library that implements the Raver Lights logging infrastucturek for use with Arduino, PlatformIO, and WASM
+_Warning:_ This repository has been deprecated and it's functionality moved into https://github.com/nebrius/rvl. Please use that instead
+
+A standalone, dependecy-less library that implements the Raver Lights logging infrastucturek for use with Arduino, PlatformIO, and WASM.
 
 # License
 
